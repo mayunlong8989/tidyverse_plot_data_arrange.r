@@ -81,19 +81,33 @@ ggplot(iris_small, aes(x = Petal.Length,y = Petal.Width)) + geom_point()
 
 #add color for differen group
 ggplot(iris_small, aes(x = Petal.Length,y = Petal.Width, color = Species)) + geom_point()
+ggplot(iris_small, aes(x = Petal.Length,y = Petal.Width, color = Species)) + geom_point(color="red") 
+ggplot(iris_small, aes(x = Petal.Length,y = Petal.Width)) + geom_point(aes(color ="red")) 
+ggplot(iris_small, aes(x = Petal.Length,y = Petal.Width)) + geom_point(aes(color = Species)) 
 
 #add different dot sizes
 ggplot(iris_small, aes(x = Petal.Length,y = Petal.Width,color = Species,size = Sepal.Length)) + geom_point()
 
-#plot in different panels
+ggplot(iris_small, aes(x = Petal.Length,y = Petal.Width,color = Species,size = Sepal.Length)) + geom_point()
+
+
+#plot in different panels (facet)
 ggplot(iris_small, aes(x = Petal.Length,y = Petal.Width)) + geom_point() + facet_wrap(~Species)
 
 
 
 #line graph
 by_year <- gapminder %>% group_by(year) %>% summarize(medianGdpPerCap = median(gdpPercap))
-
 ggplot(by_year, aes(x = year, y = medianGdpPerCap)) +geom_line() + expand_limits(y=0)
+
+#change line type by using linetype
+ggplot(by_year, aes(x = year, y = medianGdpPerCap)) +geom_line(linetype=0) + expand_limits(y=0)
+ggplot(by_year, aes(x = year, y = medianGdpPerCap)) +geom_line(linetype=1) + expand_limits(y=0)
+ggplot(by_year, aes(x = year, y = medianGdpPerCap)) +geom_line(linetype=2) + expand_limits(y=0)
+ggplot(by_year, aes(x = year, y = medianGdpPerCap)) +geom_line(linetype=3) + expand_limits(y=0)
+ggplot(by_year, aes(x = year, y = medianGdpPerCap)) +geom_line(linetype=4) + expand_limits(y=0)
+ggplot(by_year, aes(x = year, y = medianGdpPerCap)) +geom_line(linetype=5) + expand_limits(y=0)
+
 
 
 #bar chart or diagram
@@ -105,10 +119,19 @@ ggplot(by_species, aes(x = Species, y=medianPL)) + geom_col("red","yellow")
 #histogram
 
 ggplot(iris_small, aes(x = Petal.Length)) + geom_histogram(bins=45)
+ggplot(iris_small, aes(x = Petal.Length)) + geom_histogram(bins=45) + geom_hline(yintercept = c(5,7.5,10)) + geom_vline(xintercept = c(2,4,6))
 
 
 #boxplot
 ggplot(iris_small, aes(x=Species, y=Sepal.Length)) +  geom_boxplot()
+ggplot(iris_small, aes(x=Species, y=Sepal.Length)) +  geom_boxplot(aes(fill=Species))
+ggplot(iris_small, aes(x=Species, y=Sepal.Length),aes(fill=Species)) + geom_boxplot() #aes() location is influenced the color fill.
+ggplot(iris_small, aes(x=Species, y=Sepal.Length)) +  geom_boxplot(aes(fill="Species"))+scale_fill_manual(values=c("#56B4E9"))
+
+#violin
+ggplot(iris_small, aes(x=Species, y=Sepal.Length)) +  geom_violin()
+ggplot(iris_small, aes(x=Species, y=Sepal.Length)) +  geom_violin(aes(fill=Species))
+ggplot(iris_small, aes(x=Species, y=Sepal.Length)) +  geom_violin(aes(fill="Species"))+scale_fill_manual(values=c("#56B4E9"))
 
 
 
